@@ -41,3 +41,7 @@ C:\Git\HappyMoney\web\HappyMoney\HappyMoney\bin\DotNetOpenAuth.OpenId.RelyingPar
 C:\Git\HappyMoney\web\HappyMoney\HappyMoney\obj\Debug\HappyMoney.csprojResolveAssemblyReference.cache
 C:\Git\HappyMoney\web\HappyMoney\HappyMoney\obj\Debug\HappyMoney.dll
 C:\Git\HappyMoney\web\HappyMoney\HappyMoney\obj\Debug\HappyMoney.pdb
+C:\Git\HappyMoney\web\HappyMoney\HappyMoney\bin\EntityFramework.SqlServer.dll
+C:\Git\HappyMoney\web\HappyMoney\HappyMoney\bin\HappyMoney.Models.dll
+C:\Git\HappyMoney\web\HappyMoney\HappyMoney\bin\HappyMoney.Models.pdb
+C:\Git\HappyMoney\web\HappyMoney\HappyMoney\bin\EntityFramework.SqlServer.xml

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HappyMoney.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="HappyMoneyModelsStoreContainer">
+          <EntitySet Name="Budget" EntityType="HappyMoney.Models.Store.Budget" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Envelope" EntityType="HappyMoney.Models.Store.Envelope" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Envelope__Budget__2A4B4B5E" Association="HappyMoney.Models.Store.FK__Envelope__Budget__2A4B4B5E">
+            <End Role="Budget" EntitySet="Budget" />
+            <End Role="Envelope" EntitySet="Envelope" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Budget">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Envelope">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BudgetId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="256" />
+          <Property Name="Capacity" Type="float" Nullable="false" />
+          <Property Name="Balance" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Envelope__Budget__2A4B4B5E">
+          <End Role="Budget" Type="HappyMoney.Models.Store.Budget" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Envelope" Type="HappyMoney.Models.Store.Envelope" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Budget">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Envelope">
+              <PropertyRef Name="BudgetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HappyMoney.Models" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HappyMoneyEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Budgets" EntityType="HappyMoney.Models.Budget" />
+          <EntitySet Name="Envelopes" EntityType="HappyMoney.Models.Envelope" />
+          <AssociationSet Name="FK__Envelope__Budget__2A4B4B5E" Association="HappyMoney.Models.FK__Envelope__Budget__2A4B4B5E">
+            <End Role="Budget" EntitySet="Budgets" />
+            <End Role="Envelope" EntitySet="Envelopes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Budget">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="128" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Envelopes" Relationship="HappyMoney.Models.FK__Envelope__Budget__2A4B4B5E" FromRole="Budget" ToRole="Envelope" />
+        </EntityType>
+        <EntityType Name="Envelope">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="BudgetId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" Unicode="false" FixedLength="false" />
+          <Property Name="Capacity" Type="Double" Nullable="false" />
+          <Property Name="Balance" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Budget" Relationship="HappyMoney.Models.FK__Envelope__Budget__2A4B4B5E" FromRole="Envelope" ToRole="Budget" />
+        </EntityType>
+        <Association Name="FK__Envelope__Budget__2A4B4B5E">
+          <End Role="Budget" Type="HappyMoney.Models.Budget" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Envelope" Type="HappyMoney.Models.Envelope" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Budget">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Envelope">
+              <PropertyRef Name="BudgetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HappyMoneyModelsStoreContainer" CdmEntityContainer="HappyMoneyEntities">
+          <EntitySetMapping Name="Budgets">
+            <EntityTypeMapping TypeName="HappyMoney.Models.Budget">
+              <MappingFragment StoreEntitySet="Budget">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Envelopes">
+            <EntityTypeMapping TypeName="HappyMoney.Models.Envelope">
+              <MappingFragment StoreEntitySet="Envelope">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BudgetId" ColumnName="BudgetId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

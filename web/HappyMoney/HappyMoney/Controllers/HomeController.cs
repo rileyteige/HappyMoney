@@ -4,29 +4,41 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using HappyMoney.Models;
+using HappyMoney.ViewModels;
+
 namespace HappyMoney.Controllers
 {
-	public class HomeController : Controller
+	public class HomeController : BaseController
 	{
+		private readonly HappyMoneyEntities _context = new HappyMoneyEntities();
+
 		public ActionResult Index()
 		{
-			ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+			Budget budget = _context.Budgets.FirstOrDefault();
+			if (budget == null)
+			{
+				return HttpNotFound();
+			}
 
-			return View();
+			var viewModel = new ActiveEnvelopeBalanceSummaryViewModel(budget);
+
+			return View(viewModel);
 		}
 
 		public ActionResult About()
 		{
-			ViewBag.Message = "Your app description page.";
-
 			return View();
 		}
 
 		public ActionResult Contact()
 		{
-			ViewBag.Message = "Your contact page.";
-
 			return View();
+		}
+
+		public ActionResult Load()
+		{
+			return Json(new[] { 1, 2, 3 });
 		}
 	}
 }

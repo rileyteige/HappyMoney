@@ -216,3 +216,6 @@ pip-log.txt
 .mr.developer.cfg
 
 .config
+
+web/HappyMoney/HappyMoney/bin/*
+web/HappyMoney/HappyMoney/obj/*
