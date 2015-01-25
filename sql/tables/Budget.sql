@@ -3,3 +3,5 @@ create table Budget (
 	Name varchar(128),
 	[Guid] uniqueidentifier not null default(newid())
 )
+
+create unique nonclustered index ix_Budget_Guid on Budget([Guid])

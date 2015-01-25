@@ -6,3 +6,5 @@ create table Envelope (
 	Balance float not null default(0.0),
 	[Guid] uniqueidentifier not null default(newid())
 )
+
+create unique nonclustered index ix_Envelope_Guid on Envelope([Guid])
