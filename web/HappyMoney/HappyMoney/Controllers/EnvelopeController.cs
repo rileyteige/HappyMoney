@@ -54,5 +54,37 @@ namespace HappyMoney.Controllers
 
 			return envelopeRepository.UpdateEnvelopes(pairs.Select(p => p.Record));
 		}
+
+		[HttpDelete]
+		public bool Delete(DeleteEnvelopeArgs args)
+		{
+			if (args == null)
+			{
+				throw new ArgumentNullException("args");
+			}
+			if (args.EnvelopeGuid == null || args.EnvelopeGuid == Guid.Empty)
+			{
+				throw new ArgumentNullException("envelopeGuid");
+			}
+
+			IEnvelopeRepository envelopeRepository = new EnvelopeRepository();
+
+			return envelopeRepository.DeleteEnvelope(args.EnvelopeGuid);
+		}
+
+		[HttpPost]
+		public Guid Create(CreateEnvelopeArgs args)
+		{
+			IBudgetRepository budgetRepository = new BudgetRepository();
+			Budget budget = budgetRepository.GetBudget(args.BudgetGuid);
+			if (budget == null)
+			{
+				return Guid.Empty;
+			}
+
+			string name = Uri.UnescapeDataString(args.Name);
+			IEnvelopeRepository envelopeRepository = new EnvelopeRepository();
+			return envelopeRepository.CreateEnvelope(budget.Id, name);
+		}
     }
 }

@@ -10,5 +10,7 @@ namespace HappyMoney.Models.Repositories
 	{
 		Envelope GetEnvelope(Guid guid);
 		bool UpdateEnvelopes(IEnumerable<Envelope> envelopes);
+		bool DeleteEnvelope(Guid guid);
+		Guid CreateEnvelope(int budgetId, string name);
 	}
 }

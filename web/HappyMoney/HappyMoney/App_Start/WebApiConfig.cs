@@ -21,7 +21,14 @@ namespace HappyMoney
 
 			config.Routes.MapHttpRoute(
 				name: "ArgsApi",
-				routeTemplate: "api/{controller}/{args}"
+				routeTemplate: "api/{controller}/{args}",
+				defaults: new { args = RouteParameter.Optional }
+			);
+
+			config.Routes.MapHttpRoute(
+				name: "NameApi",
+				routeTemplate: "api/{controller}/{name}",
+				defaults: new { name = RouteParameter.Optional }
 			);
 		}
 	}

@@ -6,17 +6,24 @@
     ViewBag.Identifier = Model.Guid;
 }
 
-<h1>@Model.Name</h1>
+<h1>@Model.Name: <span data-bind="text: capacity">@Model.Capacity</span></h1>
 
-<table data-bind="foreach: envelopes">
-    <tr>
-        <td><input type="text" data-bind="value: name" /></td>
-        <td><input type="text" data-bind="value: capacity" /></td>
-    </tr>
+<table>
+    <tbody data-bind="foreach: envelopes">
+        <tr>
+            <td><input type="text" data-bind="value: name" /></td>
+            <td><input type="text" data-bind="value: capacity" /></td>
+            <td><a href="#" data-bind="click: $parent.deleteEnvelope">DELETE</a></td>
+        </tr>
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td><input type="text" data-bind="value: newEnvelopeName" /></td>
+            <td></td>
+            <td><a href="#" data-bind="click: createEnvelope">CREATE NEW ENVELOPE</a></td>
+        </tr>
+    </tfoot>
 </table>
-
-<div id="capacity">
-    Total budget: <span data-bind="text: capacity">@Model.Capacity</span>
-</div>
 
 <a href="#" data-bind="click: saveChanges">Save</a>

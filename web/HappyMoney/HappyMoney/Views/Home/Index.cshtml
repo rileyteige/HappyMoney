@@ -7,17 +7,15 @@
     <section class="featured">
         <div class="content-wrapper">
             <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
+                <h1>@Model.Name</h1>
             </hgroup>
-            <p>
-                Model is @Model.Name.
-            </p>
             <ul>
             @foreach (var env in Model.Envelopes) {
                 <li>@env.Name: @env.Balance / @env.Capacity</li>
             }
             </ul>
+
+            <a href="@string.Format("/Budget/{0}", Model.Name.Replace(' ', '-'))">Edit Budget Envelopes</a>
         </div>
     </section>
 }

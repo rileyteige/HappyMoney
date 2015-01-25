@@ -29,5 +29,49 @@ namespace HappyMoney.Models.Repositories
 
 			return _context.SaveChanges() >= 0;
 		}
+
+		public bool DeleteEnvelope(Guid guid)
+		{
+			if (guid == null || guid == Guid.Empty)
+			{
+				throw new ArgumentNullException("guid");
+			}
+
+			var envelope = _context.Envelopes.SingleOrDefault(env => env.Guid == guid);
+			if (envelope == null)
+			{
+				return false;
+			}
+
+			_context.Envelopes.Remove(envelope);
+			_context.SaveChanges();
+
+			return true;
+		}
+
+		public Guid CreateEnvelope(int budgetId, string name)
+		{
+			if (budgetId <= 0)
+			{
+				throw new ArgumentOutOfRangeException("budgetId", "Must be > 0.");
+			}
+			if (string.IsNullOrEmpty(name))
+			{
+				throw new ArgumentNullException("name");
+			}
+
+			Envelope envelope = new Envelope()
+			{
+				Name = name,
+				Capacity = 0.0,
+				Guid = Guid.NewGuid(),
+				BudgetId = budgetId
+			};
+
+			_context.Envelopes.Add(envelope);
+			_context.SaveChanges();
+
+			return envelope.Guid;
+		}
 	}
 }
