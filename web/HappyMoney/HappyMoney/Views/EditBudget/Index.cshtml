@@ -1,0 +1,20 @@
+﻿@model HappyMoney.ViewModels.EditBudgetViewModel
+
+@{
+    ViewBag.Title = string.Format("Editing {0}", Model.Name);
+    ViewBag.AppScript = "editBudget";
+    ViewBag.Identifier = Model.Guid;
+}
+
+<h1>@Model.Name</h1>
+
+<table data-bind="foreach: envelopes">
+    <tr>
+        <td data-bind="text: name"></td>
+        <td data-bind="text: capacity"></td>
+    </tr>
+</table>
+
+<div id="capacity">
+    Total budget: @Model.Capacity
+</div>

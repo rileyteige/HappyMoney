@@ -8,7 +8,7 @@
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
     </head>
-    <body>
+    <body data-identifier="@ViewBag.Identifier">
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
@@ -42,6 +42,12 @@
             </div>
         </footer>
 
+        @if (!string.IsNullOrEmpty(ViewBag.AppScript)) {
+            <script type="text/javascript">
+                var requireAppScript = "@(ViewBag.AppScript)";
+            </script>
+            <script src="/Scripts/require.js" data-main="/Scripts/requireConfig.js"></script>
+        }
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
     </body>

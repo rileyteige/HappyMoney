@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HappyMoney.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HappyMoney.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="HappyMoneyModelsStoreContainer">
           <EntitySet Name="Budget" EntityType="HappyMoney.Models.Store.Budget" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Envelope" EntityType="HappyMoney.Models.Store.Envelope" store:Type="Tables" Schema="dbo" />
@@ -19,6 +19,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" MaxLength="128" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Envelope">
           <Key>
@@ -29,6 +30,7 @@
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="256" />
           <Property Name="Capacity" Type="float" Nullable="false" />
           <Property Name="Balance" Type="float" Nullable="false" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <Association Name="FK__Envelope__Budget__2A4B4B5E">
           <End Role="Budget" Type="HappyMoney.Models.Store.Budget" Multiplicity="1">
@@ -44,8 +46,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HappyMoney.Models" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -64,6 +65,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="128" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Envelopes" Relationship="HappyMoney.Models.FK__Envelope__Budget__2A4B4B5E" FromRole="Budget" ToRole="Envelope" />
+          <Property Type="Guid" Name="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="Envelope">
           <Key>
@@ -74,7 +76,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="256" Unicode="false" FixedLength="false" />
           <Property Name="Capacity" Type="Double" Nullable="false" />
           <Property Name="Balance" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Budget" Relationship="HappyMoney.Models.FK__Envelope__Budget__2A4B4B5E" FromRole="Envelope" ToRole="Budget" />
+          <Property Type="Guid" Name="Guid" Nullable="false" />
         </EntityType>
         <Association Name="FK__Envelope__Budget__2A4B4B5E">
           <End Role="Budget" Type="HappyMoney.Models.Budget" Multiplicity="1">
@@ -99,6 +101,7 @@
           <EntitySetMapping Name="Budgets">
             <EntityTypeMapping TypeName="HappyMoney.Models.Budget">
               <MappingFragment StoreEntitySet="Budget">
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
@@ -107,6 +110,7 @@
           <EntitySetMapping Name="Envelopes">
             <EntityTypeMapping TypeName="HappyMoney.Models.Envelope">
               <MappingFragment StoreEntitySet="Envelope">
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="BudgetId" ColumnName="BudgetId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

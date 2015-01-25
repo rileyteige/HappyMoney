@@ -19,7 +19,6 @@ namespace HappyMoney.Models
         public string Name { get; set; }
         public double Capacity { get; set; }
         public double Balance { get; set; }
-    
-        public virtual Budget Budget { get; set; }
+        public System.Guid Guid { get; set; }
     }
 }

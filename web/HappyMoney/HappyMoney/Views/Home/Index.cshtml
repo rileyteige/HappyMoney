@@ -13,6 +13,11 @@
             <p>
                 Model is @Model.Name.
             </p>
+            <ul>
+            @foreach (var env in Model.Envelopes) {
+                <li>@env.Name: @env.Balance / @env.Capacity</li>
+            }
+            </ul>
         </div>
     </section>
 }

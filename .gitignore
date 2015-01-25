@@ -217,5 +217,4 @@ pip-log.txt
 
 .config
 
-web/HappyMoney/HappyMoney/bin/*
-web/HappyMoney/HappyMoney/obj/*
+web\HappyMoney\HappyMoney\bin\*

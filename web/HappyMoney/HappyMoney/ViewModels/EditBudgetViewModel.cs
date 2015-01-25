@@ -6,9 +6,9 @@ using HappyMoney.Models;
 
 namespace HappyMoney.ViewModels
 {
-	public class ActiveEnvelopeBalanceSummaryViewModel
+	public class EditBudgetViewModel
 	{
-		public ActiveEnvelopeBalanceSummaryViewModel(Budget budget)
+		public EditBudgetViewModel(Budget budget)
 		{
 			if (budget == null)
 			{
@@ -16,10 +16,12 @@ namespace HappyMoney.ViewModels
 			}
 
 			this.Name = budget.Name;
-			this.Envelopes = budget.Envelopes.Select(env => new EnvelopeBalanceSummaryViewModel(env));
+			this.Capacity = budget.Envelopes.Sum(env => env.Capacity);
+			this.Guid = budget.Guid;
 		}
 
 		public string Name { get; private set; }
-		public IEnumerable<EnvelopeBalanceSummaryViewModel> Envelopes { get; private set; }
+		public double Capacity { get; private set; }
+		public Guid Guid { get; private set; }
 	}
 }

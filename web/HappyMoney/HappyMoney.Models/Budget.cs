@@ -21,6 +21,7 @@ namespace HappyMoney.Models
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public System.Guid Guid { get; set; }
     
         public virtual ICollection<Envelope> Envelopes { get; set; }
     }
