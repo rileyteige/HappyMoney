@@ -4,9 +4,9 @@
         return function (endpoint, arguments, callback) {
             $.ajax({
                 url: '/api' + endpoint,
-                method: methodName,
+                type: methodName,
                 contentType: 'application/json',
-                data: arguments,
+                data: methodName !== 'GET' ? JSON.stringify(arguments) : arguments,
                 success: callback
             });
         };

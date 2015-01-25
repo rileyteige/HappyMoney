@@ -10,11 +10,13 @@
 
 <table data-bind="foreach: envelopes">
     <tr>
-        <td data-bind="text: name"></td>
-        <td data-bind="text: capacity"></td>
+        <td><input type="text" data-bind="value: name" /></td>
+        <td><input type="text" data-bind="value: capacity" /></td>
     </tr>
 </table>
 
 <div id="capacity">
-    Total budget: @Model.Capacity
+    Total budget: <span data-bind="text: capacity">@Model.Capacity</span>
 </div>
+
+<a href="#" data-bind="click: saveChanges">Save</a>

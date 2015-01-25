@@ -1,6 +1,6 @@
 ﻿// App module for the "Edit Budget" page.
 
-define(['knockout', 'jquery', 'models/budget'], function (ko, $, budget) {
+define(['knockout', 'jquery', 'models/budget', 'viewModels/EditBudgetViewModel'], function (ko, $, budget, EditBudgetViewModel) {
     var appMain = function () {
         var budgetGuid = $('body').data('identifier');
 
@@ -12,7 +12,7 @@ define(['knockout', 'jquery', 'models/budget'], function (ko, $, budget) {
     }
 
     var loadEnvelopes = function (envelopes) {
-        console.log(envelopes);
+        ko.applyBindings(new EditBudgetViewModel(envelopes));
     }
 
     return {
