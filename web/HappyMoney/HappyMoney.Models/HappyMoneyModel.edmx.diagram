@@ -10,6 +10,8 @@
         <AssociationConnector Association="HappyMoney.Models.FK__Envelope__Budget__2A4B4B5E" ManuallyRouted="false" />
         <EntityTypeShape EntityType="HappyMoney.Models.Account" Width="1.5" PointX="2.5" PointY="3.25" />
         <AssociationConnector Association="HappyMoney.Models.FK__Account__BudgetI__37A5467C" />
+        <EntityTypeShape EntityType="HappyMoney.Models.Transaction" Width="1.5" PointX="5.875" PointY="4.25" />
+        <AssociationConnector Association="HappyMoney.Models.FK__Transacti__Accou__3E52440B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

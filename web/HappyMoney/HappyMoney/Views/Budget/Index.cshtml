@@ -1,0 +1,32 @@
+﻿@model HappyMoney.ViewModels.BudgetSummaryViewModel
+
+@{
+    ViewBag.Title = Model.Name;
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@Model.Name</h1>
+            </hgroup>
+            <div id="envelopes">
+                Envelopes
+                <ul>
+                @foreach (var env in Model.Envelopes) {
+                    <li>@env.Name: @env.Balance / @env.Capacity</li>
+                }
+                </ul>
+            </div>
+            <div id="accounts">
+                Accounts
+                <ul>
+                @foreach (var acc in Model.Accounts) {
+                    <li>@acc.Name: @acc.Balance</li>
+                }
+                </ul>
+            </div>
+
+            <a href="@string.Format("/Budget/{0}", Model.Name.Replace(' ', '-'))">Edit Budget Envelopes</a>
+        </div>
+    </section>
+}

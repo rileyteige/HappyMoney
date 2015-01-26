@@ -12,20 +12,14 @@ namespace HappyMoney.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Account
+    public partial class Transaction
     {
-        public Account()
-        {
-            this.Transactions = new HashSet<Transaction>();
-        }
-    
         public int Id { get; set; }
-        public int BudgetId { get; set; }
-        public string Name { get; set; }
-        public double Balance { get; set; }
+        public int AccountId { get; set; }
+        public string Payee { get; set; }
+        public double Total { get; set; }
         public System.Guid Guid { get; set; }
     
-        public virtual Budget Budget { get; set; }
-        public virtual ICollection<Transaction> Transactions { get; set; }
+        public virtual Account Account { get; set; }
     }
 }

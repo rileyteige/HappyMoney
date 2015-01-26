@@ -9,6 +9,7 @@
           <EntitySet Name="Account" EntityType="HappyMoney.Models.Store.Account" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Budget" EntityType="HappyMoney.Models.Store.Budget" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Envelope" EntityType="HappyMoney.Models.Store.Envelope" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Transaction" EntityType="HappyMoney.Models.Store.Transaction" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK__Account__BudgetI__37A5467C" Association="HappyMoney.Models.Store.FK__Account__BudgetI__37A5467C">
             <End Role="Budget" EntitySet="Budget" />
             <End Role="Account" EntitySet="Account" />
@@ -16,6 +17,10 @@
           <AssociationSet Name="FK__Envelope__Budget__2A4B4B5E" Association="HappyMoney.Models.Store.FK__Envelope__Budget__2A4B4B5E">
             <End Role="Budget" EntitySet="Budget" />
             <End Role="Envelope" EntitySet="Envelope" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__Accou__440B1D61" Association="HappyMoney.Models.Store.FK__Transacti__Accou__440B1D61">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Transaction" EntitySet="Transaction" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Account">
@@ -47,6 +52,16 @@
           <Property Name="Balance" Type="float" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="Payee" Type="varchar" Nullable="false" MaxLength="128" />
+          <Property Name="Total" Type="float" Nullable="false" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <Association Name="FK__Account__BudgetI__37A5467C">
           <End Role="Budget" Type="HappyMoney.Models.Store.Budget" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -75,6 +90,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Transacti__Accou__440B1D61">
+          <End Role="Account" Type="HappyMoney.Models.Store.Account" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Transaction" Type="HappyMoney.Models.Store.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -90,6 +119,11 @@
           <AssociationSet Name="FK__Account__BudgetI__37A5467C" Association="HappyMoney.Models.FK__Account__BudgetI__37A5467C">
             <End Role="Budget" EntitySet="Budgets" />
             <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <EntitySet Name="Transactions" EntityType="HappyMoney.Models.Transaction" />
+          <AssociationSet Name="FK__Transacti__Accou__3E52440B" Association="HappyMoney.Models.FK__Transacti__Accou__3E52440B">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Transaction" EntitySet="Transactions" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Budget">
@@ -137,6 +171,7 @@
           <Property Type="Double" Name="Balance" Nullable="false" />
           <Property Type="Guid" Name="Guid" Nullable="false" />
           <NavigationProperty Name="Budget" Relationship="HappyMoney.Models.FK__Account__BudgetI__37A5467C" FromRole="Account" ToRole="Budget" />
+          <NavigationProperty Name="Transactions" Relationship="HappyMoney.Models.FK__Transacti__Accou__3E52440B" FromRole="Account" ToRole="Transaction" />
         </EntityType>
         <Association Name="FK__Account__BudgetI__37A5467C">
           <End Type="HappyMoney.Models.Budget" Role="Budget" Multiplicity="1">
@@ -149,6 +184,31 @@
             </Principal>
             <Dependent Role="Account">
               <PropertyRef Name="BudgetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="AccountId" Nullable="false" />
+          <Property Type="String" Name="Payee" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="Total" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="HappyMoney.Models.FK__Transacti__Accou__3E52440B" FromRole="Transaction" ToRole="Account" />
+          <Property Type="Guid" Name="Guid" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Transacti__Accou__3E52440B">
+          <End Type="HappyMoney.Models.Account" Role="Account" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HappyMoney.Models.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="AccountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -186,6 +246,17 @@
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="BudgetId" ColumnName="BudgetId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="HappyMoney.Models.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="Payee" ColumnName="Payee" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -15,8 +15,8 @@ namespace HappyMoney
 
 			routes.MapRoute(
 				name: "Budget",
-				url: "Budget/{name}",
-				defaults: new { controller = "EditBudget", action = "Index" }
+				url: "Budget/{name}/{action}",
+				defaults: new { controller = "Budget", action = "Index" }
 			);
 
 			routes.MapRoute(

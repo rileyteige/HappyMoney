@@ -15,15 +15,7 @@ namespace HappyMoney.Controllers
 
 		public ActionResult Index()
 		{
-			Budget budget = _context.Budgets.FirstOrDefault();
-			if (budget == null)
-			{
-				return HttpNotFound();
-			}
-
-			var viewModel = new BudgetSummaryViewModel(budget);
-
-			return View(viewModel);
+			return View();
 		}
 
 		public ActionResult About()

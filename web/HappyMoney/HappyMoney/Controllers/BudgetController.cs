@@ -9,7 +9,7 @@ using HappyMoney.ViewModels;
 
 namespace HappyMoney.Controllers
 {
-    public class EditBudgetController : Controller
+    public class BudgetController : Controller
     {
         //
         // GET: /Budget/{name}
@@ -18,15 +18,26 @@ namespace HappyMoney.Controllers
         public ActionResult Index(string name)
         {
 			IBudgetRepository repository = new BudgetRepository();
-
 			Budget budget = repository.GetBudget(name.Replace('-', ' '));
 			if (budget == null)
 			{
-				return new HttpNotFoundResult();
+				return HttpNotFound();
 			}
 
-			return View("Index", new EditBudgetViewModel(budget));
+			return View(new BudgetSummaryViewModel(budget));
         }
+
+		public ActionResult Edit(string name)
+		{
+			IBudgetRepository repository = new BudgetRepository();
+			Budget budget = repository.GetBudget(name.Replace('-', ' '));
+			if (budget == null)
+			{
+				return HttpNotFound();
+			}
+
+			return View(new EditBudgetViewModel(budget));
+		}
 
     }
 }

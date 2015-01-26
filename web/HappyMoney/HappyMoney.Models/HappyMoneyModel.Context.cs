@@ -28,5 +28,6 @@ namespace HappyMoney.Models
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<Envelope> Envelopes { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }
