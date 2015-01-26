@@ -7,6 +7,7 @@ using System.Web.Http;
 using HappyMoney.Controllers.Args;
 using HappyMoney.Models;
 using HappyMoney.Models.Repositories;
+using HappyMoney.Services;
 
 namespace HappyMoney.Controllers
 {
@@ -20,22 +21,29 @@ namespace HappyMoney.Controllers
 				throw new ArgumentNullException("args");
 			}
 
-			Account account = null;
-			using (IAccountRepository accounts = new AccountRepository())
+			IAccountRepository accounts = new AccountRepository();
+			Account account = accounts.GetAccount(args.AccountGuid);
+			if (account == null)
 			{
-				account = accounts.GetAccount(args.AccountGuid);
-				if (account == null)
-				{
-					return Guid.Empty;
-				}
-
-				account.Balance += args.Total;
+				return Guid.Empty;
 			}
 
-			using (ITransactionRepository repository = new TransactionRepository())
+			account.Balance += args.Total;
+			accounts.UpdateAccount(account);
+
+			ITransactionRepository repository = new TransactionRepository();
+			return repository.LogTransaction(account.Id, args.Payee, args.Total);
+		}
+
+		[HttpDelete]
+		public bool Undo(DeleteTransactionArgs args)
+		{
+			if (args == null)
 			{
-				return repository.LogTransaction(account.Id, args.Payee, args.Total);
+				throw new ArgumentNullException("args");
 			}
+
+			return new TransactionService(new TransactionRepository(), new AccountRepository()).UndoTransaction(args.TransactionGuid);
 		}
     }
 }

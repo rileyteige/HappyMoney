@@ -10,6 +10,16 @@ namespace HappyMoney.Models.Repositories
 	{
 		private readonly HappyMoneyEntities _context = new HappyMoneyEntities();
 
+		public Transaction GetTransaction(Guid transactionGuid)
+		{
+			if (transactionGuid == null || transactionGuid == Guid.Empty)
+			{
+				throw new ArgumentNullException("transactionGuid");
+			}
+
+			return _context.Transactions.SingleOrDefault(t => t.Guid == transactionGuid);
+		}
+
 		public Guid LogTransaction(int accountId, string payee, double total)
 		{
 			if (accountId <= 0)
@@ -28,7 +38,18 @@ namespace HappyMoney.Models.Repositories
 			var transaction = new Transaction { AccountId = accountId, Payee = payee, Total = total, Guid = Guid.NewGuid() };
 			_context.Transactions.Add(transaction);
 
-			return transaction.Guid;
+			return _context.SaveChanges() > 0 ? transaction.Guid : Guid.Empty;
+		}
+
+		public bool DeleteTransaction(Transaction transaction)
+		{
+			if (transaction == null)
+			{
+				throw new ArgumentNullException("transaction");
+			}
+
+			_context.Transactions.Remove(transaction);
+			return _context.SaveChanges() > 0;
 		}
 
 		public void Dispose()

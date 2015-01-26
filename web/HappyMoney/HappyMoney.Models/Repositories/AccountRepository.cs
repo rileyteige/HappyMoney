@@ -20,9 +20,23 @@ namespace HappyMoney.Models.Repositories
 			return _context.Accounts.SingleOrDefault(acc => acc.Guid == accountGuid);
 		}
 
-		public void Dispose()
+		public bool UpdateAccount(Account account)
 		{
-			_context.SaveChanges();
+			if (account == null)
+			{
+				throw new ArgumentNullException("account");
+			}
+
+			Account oldAccount = _context.Accounts.Find(account.Id);
+			if (oldAccount == null)
+			{
+				return false;
+			}
+
+			oldAccount.Name = account.Name;
+			oldAccount.Balance = account.Balance;
+
+			return _context.SaveChanges() > 0;
 		}
 	}
 }

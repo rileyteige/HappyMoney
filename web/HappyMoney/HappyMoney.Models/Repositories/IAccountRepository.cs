@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace HappyMoney.Models.Repositories
 {
-	public interface IAccountRepository : IDisposable
+	public interface IAccountRepository
 	{
 		Account GetAccount(Guid accountGuid);
+		bool UpdateAccount(Account account);
 	}
 }
