@@ -6,13 +6,28 @@
     <edmx:StorageModels>
     <Schema Namespace="HappyMoney.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="HappyMoneyModelsStoreContainer">
+          <EntitySet Name="Account" EntityType="HappyMoney.Models.Store.Account" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Budget" EntityType="HappyMoney.Models.Store.Budget" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Envelope" EntityType="HappyMoney.Models.Store.Envelope" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Account__BudgetI__37A5467C" Association="HappyMoney.Models.Store.FK__Account__BudgetI__37A5467C">
+            <End Role="Budget" EntitySet="Budget" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
           <AssociationSet Name="FK__Envelope__Budget__2A4B4B5E" Association="HappyMoney.Models.Store.FK__Envelope__Budget__2A4B4B5E">
             <End Role="Budget" EntitySet="Budget" />
             <End Role="Envelope" EntitySet="Envelope" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BudgetId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="128" />
+          <Property Name="Balance" Type="float" Nullable="false" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Budget">
           <Key>
             <PropertyRef Name="Id" />
@@ -32,6 +47,20 @@
           <Property Name="Balance" Type="float" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Account__BudgetI__37A5467C">
+          <End Role="Budget" Type="HappyMoney.Models.Store.Budget" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Account" Type="HappyMoney.Models.Store.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Budget">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="BudgetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Envelope__Budget__2A4B4B5E">
           <End Role="Budget" Type="HappyMoney.Models.Store.Budget" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -57,6 +86,11 @@
             <End Role="Budget" EntitySet="Budgets" />
             <End Role="Envelope" EntitySet="Envelopes" />
           </AssociationSet>
+          <EntitySet Name="Accounts" EntityType="HappyMoney.Models.Account" />
+          <AssociationSet Name="FK__Account__BudgetI__37A5467C" Association="HappyMoney.Models.FK__Account__BudgetI__37A5467C">
+            <End Role="Budget" EntitySet="Budgets" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Budget">
           <Key>
@@ -66,6 +100,7 @@
           <Property Name="Name" Type="String" MaxLength="128" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Envelopes" Relationship="HappyMoney.Models.FK__Envelope__Budget__2A4B4B5E" FromRole="Budget" ToRole="Envelope" />
           <Property Type="Guid" Name="Guid" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="HappyMoney.Models.FK__Account__BudgetI__37A5467C" FromRole="Budget" ToRole="Account" />
         </EntityType>
         <EntityType Name="Envelope">
           <Key>
@@ -88,6 +123,31 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Envelope">
+              <PropertyRef Name="BudgetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="BudgetId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="Balance" Nullable="false" />
+          <Property Type="Guid" Name="Guid" Nullable="false" />
+          <NavigationProperty Name="Budget" Relationship="HappyMoney.Models.FK__Account__BudgetI__37A5467C" FromRole="Account" ToRole="Budget" />
+        </EntityType>
+        <Association Name="FK__Account__BudgetI__37A5467C">
+          <End Type="HappyMoney.Models.Budget" Role="Budget" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HappyMoney.Models.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Budget">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
               <PropertyRef Name="BudgetId" />
             </Dependent>
           </ReferentialConstraint>
@@ -116,6 +176,17 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Capacity" ColumnName="Capacity" />
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="HappyMoney.Models.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BudgetId" ColumnName="BudgetId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

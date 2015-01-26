@@ -6,9 +6,9 @@ using HappyMoney.Models;
 
 namespace HappyMoney.ViewModels
 {
-	public class ActiveEnvelopeBalanceSummaryViewModel
+	public class BudgetSummaryViewModel
 	{
-		public ActiveEnvelopeBalanceSummaryViewModel(Budget budget)
+		public BudgetSummaryViewModel(Budget budget)
 		{
 			if (budget == null)
 			{

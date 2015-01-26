@@ -12,19 +12,14 @@ namespace HappyMoney.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Budget
+    public partial class Account
     {
-        public Budget()
-        {
-            this.Envelopes = new HashSet<Envelope>();
-            this.Accounts = new HashSet<Account>();
-        }
-    
         public int Id { get; set; }
+        public int BudgetId { get; set; }
         public string Name { get; set; }
+        public double Balance { get; set; }
         public System.Guid Guid { get; set; }
     
-        public virtual ICollection<Envelope> Envelopes { get; set; }
-        public virtual ICollection<Account> Accounts { get; set; }
+        public virtual Budget Budget { get; set; }
     }
 }

@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs">
+      <DependentUpon>HappyMoneyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Budget.cs">
       <DependentUpon>HappyMoneyModel.tt</DependentUpon>
     </Compile>

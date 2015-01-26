@@ -179,7 +179,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ActiveEnvelopeBalanceSummaryViewModel.cs" />
+    <Compile Include="ViewModels\BudgetSummaryViewModel.cs" />
     <Compile Include="ViewModels\EditBudgetViewModel.cs" />
     <Compile Include="ViewModels\EditEnvelopeViewModel.cs" />
     <Compile Include="ViewModels\EnvelopeBalanceSummaryViewModel.cs" />

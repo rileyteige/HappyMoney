@@ -21,7 +21,7 @@ namespace HappyMoney.Controllers
 				return HttpNotFound();
 			}
 
-			var viewModel = new ActiveEnvelopeBalanceSummaryViewModel(budget);
+			var viewModel = new BudgetSummaryViewModel(budget);
 
 			return View(viewModel);
 		}
