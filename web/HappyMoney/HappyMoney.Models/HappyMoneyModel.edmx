@@ -18,7 +18,7 @@
             <End Role="Budget" EntitySet="Budget" />
             <End Role="Envelope" EntitySet="Envelope" />
           </AssociationSet>
-          <AssociationSet Name="FK__Transacti__Accou__440B1D61" Association="HappyMoney.Models.Store.FK__Transacti__Accou__440B1D61">
+          <AssociationSet Name="FK__Transacti__Accou__571DF1D5" Association="HappyMoney.Models.Store.FK__Transacti__Accou__571DF1D5">
             <End Role="Account" EntitySet="Account" />
             <End Role="Transaction" EntitySet="Transaction" />
           </AssociationSet>
@@ -58,6 +58,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="EventDate" Type="date" Nullable="false" />
           <Property Name="Payee" Type="varchar" Nullable="false" MaxLength="128" />
           <Property Name="Total" Type="float" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
@@ -90,7 +91,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Transacti__Accou__440B1D61">
+        <Association Name="FK__Transacti__Accou__571DF1D5">
           <End Role="Account" Type="HappyMoney.Models.Store.Account" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -197,6 +198,7 @@
           <Property Type="Double" Name="Total" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="HappyMoney.Models.FK__Transacti__Accou__3E52440B" FromRole="Transaction" ToRole="Account" />
           <Property Type="Guid" Name="Guid" Nullable="false" />
+          <Property Type="DateTime" Name="EventDate" Nullable="false" Precision="0" />
         </EntityType>
         <Association Name="FK__Transacti__Accou__3E52440B">
           <End Type="HappyMoney.Models.Account" Role="Account" Multiplicity="1">
@@ -253,6 +255,7 @@
           <EntitySetMapping Name="Transactions">
             <EntityTypeMapping TypeName="HappyMoney.Models.Transaction">
               <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
                 <ScalarProperty Name="Payee" ColumnName="Payee" />
                 <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="Total" ColumnName="Total" />

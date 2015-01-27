@@ -12,6 +12,7 @@ namespace HappyMoney
 		public static void Register(HttpConfiguration config)
 		{
 			config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+			config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 
 			config.Routes.MapHttpRoute(
 				name: "DefaultApi",
@@ -27,8 +28,8 @@ namespace HappyMoney
 
 			config.Routes.MapHttpRoute(
 				name: "NameApi",
-				routeTemplate: "api/{controller}/{name}",
-				defaults: new { name = RouteParameter.Optional }
+				routeTemplate: "api/{controller}/{id}/{action}",
+				defaults: new { action = RouteParameter.Optional }
 			);
 		}
 	}

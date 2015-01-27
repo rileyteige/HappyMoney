@@ -20,6 +20,10 @@ namespace HappyMoney.Controllers
 			{
 				throw new ArgumentNullException("args");
 			}
+			if (args.EventDate.Year < 1900 || args.EventDate.Year > 2100)
+			{
+				throw new ArgumentOutOfRangeException("args.EventDate", "Must be after the year 1900 and before the year 2100.");
+			}
 
 			IAccountRepository accounts = new AccountRepository();
 			Account account = accounts.GetAccount(args.AccountGuid);
@@ -32,7 +36,7 @@ namespace HappyMoney.Controllers
 			accounts.UpdateAccount(account);
 
 			ITransactionRepository repository = new TransactionRepository();
-			return repository.LogTransaction(account.Id, args.Payee, args.Total);
+			return repository.PostTransaction(account.Id, args.EventDate, args.Payee, args.Total);
 		}
 
 		[HttpDelete]

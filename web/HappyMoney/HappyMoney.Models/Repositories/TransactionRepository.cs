@@ -20,11 +20,15 @@ namespace HappyMoney.Models.Repositories
 			return _context.Transactions.SingleOrDefault(t => t.Guid == transactionGuid);
 		}
 
-		public Guid LogTransaction(int accountId, string payee, double total)
+		public Guid PostTransaction(int accountId, DateTime eventDate, string payee, double total)
 		{
 			if (accountId <= 0)
 			{
 				throw new ArgumentOutOfRangeException("accountId", "Must be > 0.");
+			}
+			if (eventDate.Year < 1900 || eventDate.Year > 2100)
+			{
+				throw new ArgumentOutOfRangeException("eventDate", "Must be between 1900 and 2100.");
 			}
 			if (string.IsNullOrEmpty(payee))
 			{
@@ -35,7 +39,7 @@ namespace HappyMoney.Models.Repositories
 				throw new ArgumentException("total", "Must be non-zero.");
 			}
 
-			var transaction = new Transaction { AccountId = accountId, Payee = payee, Total = total, Guid = Guid.NewGuid() };
+			var transaction = new Transaction { AccountId = accountId, EventDate = eventDate, Payee = payee, Total = total, Guid = Guid.NewGuid() };
 			_context.Transactions.Add(transaction);
 
 			return _context.SaveChanges() > 0 ? transaction.Guid : Guid.Empty;

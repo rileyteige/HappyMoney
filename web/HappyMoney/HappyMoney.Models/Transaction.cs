@@ -19,6 +19,7 @@ namespace HappyMoney.Models
         public string Payee { get; set; }
         public double Total { get; set; }
         public System.Guid Guid { get; set; }
+        public System.DateTime EventDate { get; set; }
     
         public virtual Account Account { get; set; }
     }

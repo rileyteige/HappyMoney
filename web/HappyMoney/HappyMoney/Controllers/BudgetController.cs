@@ -38,6 +38,5 @@ namespace HappyMoney.Controllers
 
 			return View(new EditBudgetViewModel(budget));
 		}
-
     }
 }

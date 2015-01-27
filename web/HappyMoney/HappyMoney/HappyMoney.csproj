@@ -166,6 +166,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\BudgetController.cs" />
     <Compile Include="Controllers\Args\CreateEnvelopeArgs.cs" />
     <Compile Include="Controllers\Args\CreateTransactionArgs.cs" />
     <Compile Include="Controllers\Args\DeleteTransactionArgs.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="ViewModels\EditBudgetViewModel.cs" />
     <Compile Include="ViewModels\EditEnvelopeViewModel.cs" />
     <Compile Include="ViewModels\EnvelopeBalanceSummaryViewModel.cs" />
+    <Compile Include="ViewModels\TransactionSummaryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

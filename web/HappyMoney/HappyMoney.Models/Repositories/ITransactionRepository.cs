@@ -9,7 +9,7 @@ namespace HappyMoney.Models.Repositories
 	public interface ITransactionRepository
 	{
 		Transaction GetTransaction(Guid transactionGuid);
-		Guid LogTransaction(int accountId, string payee, double total);
+		Guid PostTransaction(int accountId, DateTime eventDate, string payee, double total);
 		bool DeleteTransaction(Transaction transaction);
 	}
 }

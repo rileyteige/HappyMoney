@@ -12,6 +12,7 @@ namespace HappyMoney.Controllers.Args
 		}
 
 		public Guid AccountGuid { get; set; }
+		public DateTime EventDate { get; set; }
 		public string Payee { get; set; }
 		public double Total { get; set; }
 	}
