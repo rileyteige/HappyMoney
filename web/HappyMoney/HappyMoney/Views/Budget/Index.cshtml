@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = Model.Name;
     ViewBag.Identifier = Model.Guid;
+    ViewBag.AppScript = "budgetSummary";
 }
 @section featured {
     <section class="featured">
@@ -10,24 +11,35 @@
             <hgroup class="title">
                 <h1>@Model.Name</h1>
             </hgroup>
-            <div id="envelopes">
-                Envelopes
-                <ul>
-                @foreach (var env in Model.Envelopes) {
-                    <li>@env.Name: @env.Balance / @env.Capacity</li>
-                }
-                </ul>
+            <div id="budgetStructure">
+                <div id="envelopes">
+                    Envelopes
+                    <ul>
+                    @foreach (var env in Model.Envelopes) {
+                        <li>@env.Name: @env.Balance / @env.Capacity</li>
+                    }
+                    </ul>
+                </div>
+                <div id="accounts">
+                    Accounts
+                    <ul>
+                    @foreach (var acc in Model.Accounts) {
+                        <li>@acc.Name: @acc.Balance</li>
+                    }
+                    </ul>
+                </div>
             </div>
-            <div id="accounts">
-                Accounts
-                <ul>
-                @foreach (var acc in Model.Accounts) {
-                    <li>@acc.Name: @acc.Balance</li>
-                }
+            <div id="transactionsContainer">
+                Transactions
+                <ul data-bind="foreach: transactions">
+                    <li>
+                        <div data-bind="text: payee"></div>
+                        <div data-bind="text: total"></div> 
+                    </li>
                 </ul>
             </div>
 
-            <a href="@string.Format("/Budget/{0}", Model.Name.Replace(' ', '-'))">Edit Budget Envelopes</a>
+            <a href="@string.Format("/Budget/{0}/Edit", Model.Name.Replace(' ', '-'))">Edit Budget Envelopes</a>
         </div>
     </section>
 }
