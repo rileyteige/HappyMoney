@@ -19,8 +19,10 @@ namespace HappyMoney.ViewModels
 			this.Payee = transaction.Payee;
 			this.Total = transaction.Total;
 			this.Guid = transaction.Guid;
+			this.AccountId = transaction.AccountId;
 		}
 
+		public int AccountId { get; set; }
 		public DateTime EventDate { get; set; }
 		public string Payee { get; set; }
 		public double Total { get; set; }

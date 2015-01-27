@@ -12,10 +12,10 @@
             endpoints.get('/Envelope', { budgetGuid: budgetGuid }, callback);
         },
 
-        getTransactions: function (budgetGuid, callback, error) {
+        getBudgetSummary: function (budgetGuid, callback, error) {
             testBudgetGuid(budgetGuid);
 
-            endpoints.get('/Budget/' + budgetGuid + '/Transactions', {}, callback, error);
+            endpoints.get('/Budget/' + budgetGuid, {}, callback, error);
         }
     }
 });

@@ -13,7 +13,7 @@ namespace HappyMoney.Controllers.Api
     public class BudgetController : ApiController
     {
 		[HttpGet]
-		public IEnumerable<TransactionSummaryViewModel> Transactions(Guid id)
+		public BudgetSummaryViewModel Get(Guid id)
 		{
 			if (id == null || id == Guid.Empty)
 			{
@@ -27,11 +27,7 @@ namespace HappyMoney.Controllers.Api
 				return null;
 			}
 
-			return budget.Accounts
-					.SelectMany(acc => acc.Transactions)
-					.OrderByDescending(trans => trans.EventDate)
-					.ThenByDescending(trans => trans.Id)
-					.Select(trans => new TransactionSummaryViewModel(trans));
+			return new BudgetSummaryViewModel(budget);
 		}
     }
 }

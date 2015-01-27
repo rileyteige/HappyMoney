@@ -2,8 +2,8 @@
     function appMain() {
         var budgetGuid = extractPageGuid();
 
-        budgetService.getTransactions(budgetGuid, function (transactions) {
-            ko.applyBindings(new BudgetSummaryViewModel(transactions));
+        budgetService.getBudgetSummary(budgetGuid, function (budget) {
+            ko.applyBindings(new BudgetSummaryViewModel(budget));
         });
     }
 

@@ -12,31 +12,35 @@
                 <h1>@Model.Name</h1>
             </hgroup>
             <div id="budgetStructure">
+
                 <div id="envelopes">
                     Envelopes
-                    <ul>
-                    @foreach (var env in Model.Envelopes) {
-                        <li>@env.Name: @env.Balance / @env.Capacity</li>
-                    }
+                    <ul data-bind="foreach: envelopes">
+                        <li><span data-bind="text: name"></span>: <span data-bind="text: balance"></span> / <span data-bind="text: capacity"></span></li>
                     </ul>
                 </div>
+
                 <div id="accounts">
                     Accounts
-                    <ul>
-                    @foreach (var acc in Model.Accounts) {
-                        <li>@acc.Name: @acc.Balance</li>
-                    }
+                    <ul data-bind="foreach: accounts">
+                        <li><span data-bind="text: name"></span>: <span data-bind="text: balance"></span></li>
                     </ul>
                 </div>
+
             </div>
+
             <div id="transactionsContainer">
                 Transactions
-                <ul data-bind="foreach: transactions">
-                    <li>
-                        <div data-bind="text: payee"></div>
-                        <div data-bind="text: total"></div> 
-                    </li>
-                </ul>
+                <table data-bind="foreach: transactions">
+                    <tr>
+                        <td>
+                            <span data-bind="text: payee"></span> &mdash; <span data-bind="text: total"></span>
+                        </td>
+                        <td>
+                            <a href="#" data-bind="click: $parent.deleteTransaction">DELETE TRANSACTION</a>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
             <a href="@string.Format("/Budget/{0}/Edit", Model.Name.Replace(' ', '-'))">Edit Budget Envelopes</a>
