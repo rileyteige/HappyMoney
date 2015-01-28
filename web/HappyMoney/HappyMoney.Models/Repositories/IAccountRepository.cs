@@ -8,7 +8,7 @@ namespace HappyMoney.Models.Repositories
 {
 	public interface IAccountRepository
 	{
-		Account GetAccount(Guid accountGuid);
+		Account GetAccount(int id);
 		bool UpdateAccount(Account account);
 	}
 }

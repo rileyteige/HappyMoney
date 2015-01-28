@@ -11,7 +11,7 @@
             <hgroup class="title">
                 <h1>@Model.Name</h1>
             </hgroup>
-            <div id="budgetStructure">
+            <div id="budgetStructure" style="float: left; width: 40%;">
 
                 <div id="envelopes">
                     Envelopes
@@ -29,8 +29,20 @@
 
             </div>
 
-            <div id="transactionsContainer">
+            <div id="transactionsContainer" data-bind="with: transactionSet" style="float: right; width: 60%;">
+
                 Transactions
+
+                <div id="newTransaction">
+                    Payee: <input type="text" data-bind="value: newTransactionPayee" /><br />
+                    Total: <input type="text" data-bind="value: newTransactionTotal" /><br />
+                    Account: <select data-bind="options: $parent.accounts,
+                                                optionsText: function (account) { return account.name },
+                                                value: selectedAccount"></select><br />
+
+                    <button data-bind="click: postTransaction">POST TRANSACTION</button>
+                </div>
+
                 <table data-bind="foreach: transactions">
                     <tr>
                         <td>
@@ -42,6 +54,8 @@
                     </tr>
                 </table>
             </div>
+
+            <div style="clear: both;" />
 
             <a href="@string.Format("/Budget/{0}/Edit", Model.Name.Replace(' ', '-'))">Edit Budget Envelopes</a>
         </div>

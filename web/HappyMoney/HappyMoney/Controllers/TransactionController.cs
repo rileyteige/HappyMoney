@@ -26,7 +26,7 @@ namespace HappyMoney.Controllers
 			}
 
 			IAccountRepository accounts = new AccountRepository();
-			Account account = accounts.GetAccount(args.AccountGuid);
+			Account account = accounts.GetAccount(args.AccountId);
 			if (account == null)
 			{
 				return Guid.Empty;

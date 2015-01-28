@@ -10,14 +10,14 @@ namespace HappyMoney.Models.Repositories
 	{
 		private readonly HappyMoneyEntities _context = new HappyMoneyEntities();
 
-		public Account GetAccount(Guid accountGuid)
+		public Account GetAccount(int accountId)
 		{
-			if (accountGuid == null || accountGuid == Guid.Empty)
+			if (accountId <= 0)
 			{
-				throw new ArgumentNullException("accountGuid");
+				throw new ArgumentOutOfRangeException("accountId", "Must be greater than zero.");
 			}
 
-			return _context.Accounts.SingleOrDefault(acc => acc.Guid == accountGuid);
+			return _context.Accounts.Find(accountId);
 		}
 
 		public bool UpdateAccount(Account account)

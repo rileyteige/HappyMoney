@@ -17,11 +17,11 @@ namespace HappyMoney.ViewModels
 
 			this.Name = account.Name;
 			this.Balance = account.Balance;
-			this.Guid = account.Guid;
+			this.Id = account.Id;
 		}
 
 		public string Name { get; private set; }
 		public double Balance { get; private set; }
-		public Guid Guid { get; private set; }
+		public int Id { get; private set; }
 	}
 }
