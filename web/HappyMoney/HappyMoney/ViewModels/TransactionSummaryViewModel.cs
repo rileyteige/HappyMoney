@@ -15,6 +15,7 @@ namespace HappyMoney.ViewModels
 				throw new ArgumentNullException("transaction");
 			}
 
+			this.Id = transaction.Id;
 			this.EventDate = transaction.EventDate;
 			this.Payee = transaction.Payee;
 			this.Total = transaction.Total;
@@ -22,6 +23,7 @@ namespace HappyMoney.ViewModels
 			this.AccountId = transaction.AccountId;
 		}
 
+		public int Id { get; set; }
 		public int AccountId { get; set; }
 		public DateTime EventDate { get; set; }
 		public string Payee { get; set; }

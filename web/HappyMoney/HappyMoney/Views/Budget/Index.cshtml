@@ -16,14 +16,14 @@
                 <div id="envelopes">
                     Envelopes
                     <ul data-bind="foreach: envelopes">
-                        <li><span data-bind="text: name"></span>: <span data-bind="text: balance"></span> / <span data-bind="text: capacity"></span></li>
+                        <li><span data-bind="text: name"></span>: <span data-bind="text: displayBalance"></span> / <span data-bind="text: displayCapacity"></span></li>
                     </ul>
                 </div>
 
                 <div id="accounts">
                     Accounts
                     <ul data-bind="foreach: accounts">
-                        <li><span data-bind="text: name"></span>: <span data-bind="text: balance"></span></li>
+                        <li><span data-bind="text: name"></span>: <span data-bind="text: displayBalance"></span></li>
                     </ul>
                 </div>
 
@@ -34,11 +34,28 @@
                 Transactions
 
                 <div id="newTransaction">
-                    Payee: <input type="text" data-bind="value: newTransactionPayee" /><br />
-                    Total: <input type="text" data-bind="value: newTransactionTotal" /><br />
-                    Account: <select data-bind="options: $parent.accounts,
-                                                optionsText: function (account) { return account.name },
-                                                value: selectedAccount"></select><br />
+                    <table>
+                        <tr>
+                            <td>Payee:</td>
+                            <td><input type="text" data-bind="value: newTransactionPayee" /></td>
+                        </tr>
+                        <tr>
+                            <td>Total:</td>
+                            <td><input type="text" data-bind="value: newTransactionTotal" /></td>
+                        </tr>
+                        <tr>
+                            <td>Date:</td>
+                            <td><input type="date" class="date-picker" data-bind="value: newTransactionDate" /></td>
+                        </tr>
+                        <tr>
+                            <td>Account:</td>
+                            <td>
+                                <select data-bind="options: $parent.accounts,
+                                                   optionsText: function (account) { return account.name },
+                                                   value: selectedAccount"></select>
+                            </td>
+                        </tr>
+                    </table>
 
                     <button data-bind="click: postTransaction">POST TRANSACTION</button>
                 </div>
@@ -46,7 +63,13 @@
                 <table data-bind="foreach: transactions">
                     <tr>
                         <td>
-                            <span data-bind="text: payee"></span> &mdash; <span data-bind="text: total"></span>
+                            <span data-bind="text: payee"></span>
+                        </td>
+                        <td>
+                            <span data-bind="text: displayTotal"></span>
+                        </td>
+                        <td>
+                            <span data-bind="text: displayDate"></span>
                         </td>
                         <td>
                             <a href="#" data-bind="click: $parent.deleteTransaction">DELETE TRANSACTION</a>

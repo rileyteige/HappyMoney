@@ -271,9 +271,11 @@
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\requireConfig.js" />
     <Content Include="Scripts\util\endpoints.js" />
+    <Content Include="Scripts\util\formatter.js" />
     <Content Include="Scripts\util\pageGuid.js" />
     <Content Include="Scripts\viewModels\BudgetSummaryViewModel.js" />
     <Content Include="Scripts\viewModels\EditBudgetViewModel.js" />
+    <Content Include="Scripts\viewModels\TransactionsViewModel.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

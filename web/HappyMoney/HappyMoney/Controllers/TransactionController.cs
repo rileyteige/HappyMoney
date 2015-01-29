@@ -36,7 +36,7 @@ namespace HappyMoney.Controllers
 			accounts.UpdateAccount(account);
 
 			ITransactionRepository repository = new TransactionRepository();
-			return repository.PostTransaction(account.Id, args.EventDate, args.Payee, args.Total);
+			return repository.PostTransaction(account.Id, args.EventDate, Uri.UnescapeDataString(args.Payee), args.Total);
 		}
 
 		[HttpDelete]
